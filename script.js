@@ -38,6 +38,12 @@ sections.forEach(section => {
 
   if (!btn || !input) return; // skip intro + completion message
 
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    btn.click();
+  }
+});
+
   btn.addEventListener("click", () => {
     const userAnswer = input.value.trim().toLowerCase();
     const correctAnswer = answers[section.id];
