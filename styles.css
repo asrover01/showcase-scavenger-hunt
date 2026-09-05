@@ -31,7 +31,7 @@ body{
     background-size: cover;
     background-image: url(./background-image.jpg);
    height: 100vh;
-   overflow: hidden;
+
    
 }
 main{
@@ -88,6 +88,17 @@ img{
     height: auto;
     margin-top: 1rem;
     border-radius: 10rem;
+}
+span{
+    display: flex;
+   
+}
+label{
+    margin: 1rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    background: white;
+    height: fit-content;
 }
 
 .hidden{
