@@ -131,6 +131,10 @@ sections.forEach(section => {
 // =========================
 // RETRY BUTTON
 // =========================
+retryBtn.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") retryBtn.click();
+  });
+  
 retryBtn.addEventListener("click", () => {
   document.getElementById("incorrect-message").classList.add("hidden");
 
@@ -160,6 +164,10 @@ if (cheatBtn) {
 // =========================
 // END RESET BUTTON
 // =========================
+endResetBtn.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") endResetBtn.click();
+  });
+  
 endResetBtn.addEventListener("click", () => {
   localStorage.removeItem("currentQuestion");
   currentQuestion = 1;
@@ -167,4 +175,6 @@ endResetBtn.addEventListener("click", () => {
   sections.forEach(section => section.classList.add("hidden"));
 
   document.getElementById("intro").classList.remove("hidden");
+  masterCodeInput.value = "";
+  masterCodeInput.focus();
 });
