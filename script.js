@@ -1,6 +1,15 @@
+// =========================
+// ELEMENT REFERENCES
+// =========================
 const startBtn = document.getElementById("start-btn");
 const sections = document.querySelectorAll(".scavenger-hunt-container");
+const retryBtn = document.getElementById("retry-btn");
+const cheatBtn = document.getElementById("reset-btn");
+const endResetBtn = document.getElementById("end-reset-btn");
 
+// =========================
+// ANSWERS
+// =========================
 const answers = {
   "question-1": "4658",
   "question-2": "8742",
@@ -14,40 +23,48 @@ const answers = {
   "question-10": "2997"
 };
 
-// Load saved progress or default to question 1
-let currentQuestion =  Number(localStorage.getItem("currentQuestion")) || 1;
+// =========================
+// LOAD PROGRESS
+// =========================
+let currentQuestion = Number(localStorage.getItem("currentQuestion")) || 1;
 
-// Always show intro on page load
-document.getElementById("intro").classList.remove("hidden");
+// If user already completed the hunt → show question-11
+if (currentQuestion > 10) {
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("question-11").classList.remove("hidden");
+} else {
+  // Always show intro on page load
+  document.getElementById("intro").classList.remove("hidden");
+}
 
-// When Start is clicked → skip ahead to saved question
+// =========================
+// START BUTTON
+// =========================
 startBtn.addEventListener("click", () => {
   document.getElementById("intro").classList.add("hidden");
 
   const savedSection = document.getElementById(`question-${currentQuestion}`);
-
-  if (savedSection) {
-    savedSection.classList.remove("hidden");
-  }
+  if (savedSection) savedSection.classList.remove("hidden");
 });
 
-// Add listeners for each question
+// =========================
+// QUESTION LOGIC
+// =========================
 sections.forEach(section => {
   const btn = section.querySelector("button");
   const input = section.querySelector("input");
 
-  if (!btn || !input) return; // skip intro + completion message
+  if (!btn || !input) return; // skip intro + question-11 + incorrect message
 
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    btn.click();
-  }
-});
+  // ENTER KEY SUBMITS ANSWER
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") btn.click();
+  });
 
+  // SUBMIT BUTTON
   btn.addEventListener("click", () => {
     const userAnswer = input.value.trim().toLowerCase();
     const correctAnswer = answers[section.id];
-
     const questionNumber = Number(section.id.split("-")[1]);
 
     if (userAnswer === correctAnswer) {
@@ -65,7 +82,8 @@ input.addEventListener("keydown", (e) => {
       if (nextSection) {
         nextSection.classList.remove("hidden");
       } else {
-        document.getElementById("completion-message").classList.remove("hidden");
+        // Show final screen (question-11)
+        document.getElementById("question-11").classList.remove("hidden");
       }
     } else {
       // Incorrect answer
@@ -75,40 +93,38 @@ input.addEventListener("keydown", (e) => {
   });
 });
 
-// Retry button → return to the same question
-document.getElementById("retry-btn").addEventListener("click", () => {
+// =========================
+// RETRY BUTTON
+// =========================
+retryBtn.addEventListener("click", () => {
   document.getElementById("incorrect-message").classList.add("hidden");
 
   const retrySection = document.getElementById(`question-${currentQuestion}`);
   retrySection.classList.remove("hidden");
 });
-const cheatBtn = document.getElementById("reset-btn");
 
-cheatBtn.addEventListener("click", () => {
-  // Clear saved progress
+// =========================
+// CHEAT BUTTON (SKIP TO END)
+// =========================
+/*cheatBtn.addEventListener("click", () => {
   localStorage.removeItem("currentQuestion");
 
-  // Hide all sections
   sections.forEach(section => section.classList.add("hidden"));
 
-  // Show completion message instantly
-  document.getElementById("completion-message").classList.remove("hidden");
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("question-11").classList.remove("hidden");
 
-  // Set currentQuestion to 10 so retry doesn't break anything
-  currentQuestion = 10;
-});
-const endResetBtn = document.getElementById("end-reset-btn");
+  currentQuestion = 11;
+});*/
 
+// =========================
+// END RESET BUTTON
+// =========================
 endResetBtn.addEventListener("click", () => {
-  // Clear saved progress
   localStorage.removeItem("currentQuestion");
-
-  // Reset question counter
   currentQuestion = 1;
 
-  // Hide all sections
   sections.forEach(section => section.classList.add("hidden"));
 
-  // Show intro again
   document.getElementById("intro").classList.remove("hidden");
 });
