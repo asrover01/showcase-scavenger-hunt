@@ -4,7 +4,7 @@
 const startBtn = document.getElementById("start-btn");
 const sections = document.querySelectorAll(".scavenger-hunt-container");
 const retryBtn = document.getElementById("retry-btn");
-const cheatBtn = document.getElementById("reset-btn");
+const cheatBtn = document.getElementById("cheat-btn");
 const endResetBtn = document.getElementById("end-reset-btn");
 
 // =========================
@@ -20,7 +20,8 @@ const answers = {
   "question-7": "6259",
   "question-8": "7315",
   "question-9": "8513",
-  "question-10": "2997"
+  "question-10": "2997",
+  'master-key': "0197"
 };
 
 // =========================
@@ -106,7 +107,7 @@ retryBtn.addEventListener("click", () => {
 // =========================
 // CHEAT BUTTON (SKIP TO END)
 // =========================
-/*cheatBtn.addEventListener("click", () => {
+cheatBtn.addEventListener("click", () => {
   localStorage.removeItem("currentQuestion");
 
   sections.forEach(section => section.classList.add("hidden"));
@@ -115,7 +116,7 @@ retryBtn.addEventListener("click", () => {
   document.getElementById("question-11").classList.remove("hidden");
 
   currentQuestion = 11;
-});*/
+});
 
 // =========================
 // END RESET BUTTON
