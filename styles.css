@@ -1,106 +1,116 @@
-root{
-    --primary-color: #4CAF50;
-    --secondary-color: #f44336;
-    
-    font-size: 20px;
-}
+<!DOCTYPE html>
+<html lang="en">    
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Scavenger Hunt</title>
+        <link rel="stylesheet" href="./styles.css" />
+    </head>
+    <body>
+        <header>
+            <h1>Showcase: Scavenger Hunt</h1>
+        </header>
+       <main>
+            <section id="intro" class="scavenger-hunt-container">
+                <p>Click the button to start the scavenger hunt!<br><br>
+                Instructions: Find the four digit code at each of the ten riddles, enter the code to reveal the next riddle  </p>
+                <span><label for="master-code">Master Code:</label>
+                
+                    <input type="text" id="master-code" placeholder="Enter the code here" />  
+                 </span>
+                 <button class="btn" id="start-btn">Start</button>
+             
+            </section>
+            <section class="scavenger-hunt-container hidden" id="question-1">
+                <p><u>Question 1</u><br> A home for buns and dogs of the edible kind,
+abandoned when tiny intruders arrived.</p>
+                <input type="text" id="q1-answer" placeholder="Enter your answer here" />
+                <button class="btn" id="q1-submit">Submit</button>
+            </section>
+            <section class="scavenger-hunt-container hidden" id="question-2">
+                <p><u>Question 2</u><br>A chamber of heat and whirring gears,
+where the smallest grains become the cinema’s biggest aroma. </p>
+                <input type="text" id="q2-answer" placeholder="Enter your answer here" />
+                <button class="btn" id="q2-submit">Submit</button>
+            </section>  
+            <section class="scavenger-hunt-container hidden" id="question-3">
+                <p><u>Question 3</u><br>A frosted vault beside the bar,
+mistaken for underground but never was,
+keeper of bottles saved for when the night ran long.</p>
+                <input type="text" id="q3-answer" placeholder="Enter your answer here" />
+                <button class="btn" id="q3-submit">Submit</button>      
+        </section>
+        <section class="scavenger-hunt-container hidden" id="question-4">
+                <p><u>Question 4</u><br>The place you only find when changing flavours,
+under the syrup crates that keep the ICEE alive
+and stain your hands red and blue.</p>
+                <input type="text" id="q4-answer" placeholder="Enter your answer here" />
+                <button class="btn" id="q4-submit">Submit</button>
+            </section>
+            <section class="scavenger-hunt-container hidden" id="question-5">
+                <p><u>Question 5</u><br>A cupboard by the ice cream station,
+elevated to legend by its nickname,
+though it stored only the chips for nachos. </p>
+                <input type="text" id="q5-answer" placeholder="Enter your answer here" />
+                <button class="btn" id="q5-submit">Submit</button>  
+            </section>
+            <section
+    class="scavenger-hunt-container hidden" id="question-6">
+                    <p><u>Question 6</u><br> A cupboard tucked away for late‑night duties,
+holding the covers for when the doors are shut
+and the foyer falls silent.</p>
+                    <input type="text" id="q6-answer" placeholder="Enter your answer here" />
+                    <button class="btn" id="q6-submit">Submit</button>
+            </section>
+            <section class="scavenger-hunt-container hidden" id="question-7">
+                <p><u>Question 7</u><br>A cupboard hidden in plain sight,
+storing the usher brushes and bins,
+find me under the washing liquid
+that marked the rhythm of every shift.</p>
+                <input type="text" id="q7-answer" placeholder="Enter your answer here" />
+                <button class="btn" id="q7-submit">Submit</button>  
+            </section>
+            <section class="scavenger-hunt-container hidden" id="question-8">
+                <p><u>Question 8</u><br>The cupboard on bar that smelled better than the rest,
+hiding the coffee beans
+we grabbed whenever the machine ran dry.</p>
+                <input type="text" id="q8-answer" placeholder="Enter your answer here" />
+                <button class="btn" id="q8-submit">Submit</button>
+            </section>
+            <section class="scavenger-hunt-container hidden" id="question-9">
+                <p><u>Question 9</u><br>The shelf in the upstairs corridor,
+home to the COSH booklet we all pretended to read,
+keeps the code hidden underneath
+for those who know where to look.</p>
+                <input type="text" id="q9-answer" placeholder="Enter your answer here" />
+                <button class="btn" id="q9-submit">Submit</button>
+            </section>
 
-*,*::after, *::before {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
-
-h1{
-    font-size: clamp(1rem, 5vw,2rem);
-    text-align: center;
-    margin: 1rem auto;
-    background: linear-gradient(90deg,
-                        rgb(223, 191, 15),
-                        rgb(236, 221, 131),
-                        rgb(240, 232, 187));
-    width: fit-content;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-}
-
-body{
-   background-position: center;
-    background-size: cover;
-    background-image: url(./background-image.jpg);
-   height: 100vh;
-
-   
-}
-main{
-    width: 100vw;
-   
-    margin: 0 auto;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    
-    align-items: center;
-    height: 100vh;
-}
-section{
-    width: clamp(20em, 20vw, 50em);
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    margin: 2rem auto;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;     
-}
-p{
-    font-weight: bold;
-   
-    margin-bottom: 1rem;
-    background: linear-gradient(170deg,
-                        rgb(15, 25, 223),
-                        rgb(131, 236, 162),
-                        rgb(250, 225, 87));
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-}
-input{
-    padding: 0.5em;
-    margin: 1rem auto;
-    font-size: 1rem;
-    border: 2px solid rgb(161, 156, 244);
-    
-}
-button{
-    padding: 0.5em 1em;
-    margin: 1rem auto;
-    font-size: 1rem;
-    background-color: rgb(244, 208, 8);
-    color: black;
-    border: 0.5em solid rgb(223, 191, 15);
-    border-color: rgb(223, 191, 15) rgb(244, 208, 8);
-    cursor: pointer;
-}
-
-img{
-    width: 15em;
-    height: auto;
-    margin-top: 1rem;
-    border-radius: 10rem;
-}
-span{
-    display: flex;
-   
-}
-label{
-    margin: 1rem;
-    font-weight: bold;
-    padding: 0.5rem;
-    background: white;
-    height: fit-content;
-}
-
-.hidden{
-    display: none;
-}
+            <section class="scavenger-hunt-container hidden" id="question-10">
+                <p><u>Question 10</u><br> Hidden beneath the magic water we all hate,
+the stuff that made every clean‑up a curse,
+lies the final code waiting for whoever dares
+to look under the thing no one wants to use.</p>
+                <input type="text" id="q10-answer" placeholder="Enter your answer here" />
+                <button class="btn" id="q10-submit">Submit</button>
+            </section>
+            <section class="scavenger-hunt-container hidden" id="question-11">
+                <p>Congratulations! You have completed the scavenger hunt!<br><br>
+                Seek the staffroom’s keeper of hours,
+and behind it, in the domain of the gents,
+the prize you seek — the locker’s key —
+will reveal itself. </p>
+                <img src="./a0c8b72e-16a2-4755-8ac0-99f80c6b7113~1.jpg"
+                 alt="Celebration GIF" />
+                 <button class="btn" id="end-reset-btn">Reset</button>
+            </section>
+            <section class="scavenger-hunt-container hidden" id="incorrect-message">
+                <p>Incorrect answer. Please try again.</p>
+                <button class="btn" id="retry-btn">Retry</button>
+            </section>
+        </main>
+        <button class="btn hidden" id="cheat-btn">Cheat</button>  
+        
+        <script src="./script.js"></script>
+    </body>
+</html>
