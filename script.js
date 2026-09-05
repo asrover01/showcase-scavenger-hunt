@@ -6,7 +6,7 @@ const sections = document.querySelectorAll(".scavenger-hunt-container");
 const retryBtn = document.getElementById("retry-btn");
 const cheatBtn = document.getElementById("cheat-btn");
 const endResetBtn = document.getElementById("end-reset-btn");
-
+const masterCodeInput = document.getElementById("master-code");
 // =========================
 // ANSWERS
 // =========================
@@ -21,9 +21,8 @@ const answers = {
   "question-8": "7315",
   "question-9": "8513",
   "question-10": "2997",
-  'master-key': "0197"
 };
-
+const masterKey = "0197"; // Master key to skip to the end
 // =========================
 // LOAD PROGRESS
 // =========================
@@ -34,60 +33,95 @@ if (currentQuestion > 10) {
   document.getElementById("intro").classList.add("hidden");
   document.getElementById("question-11").classList.remove("hidden");
 } else {
-  // Always show intro on page load
   document.getElementById("intro").classList.remove("hidden");
 }
 
 // =========================
 // START BUTTON
 // =========================
+ masterCodeInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") startBtn.click();
+  });
+  
+        if (!intro.classList.contains('hidden')) masterCodeInput.focus();
+      
+
 startBtn.addEventListener("click", () => {
   document.getElementById("intro").classList.add("hidden");
 
+  // MASTER KEY CHECK
+  if (masterCodeInput.value.trim() === masterKey) {
+    document.getElementById("question-11").classList.remove("hidden");
+    localStorage.setItem("currentQuestion", 11);
+    currentQuestion = 11;
+    document.getElementById("incorrect-message").classList.add("hidden");
+    return; // ⭐ THIS FIXES THE ISSUE
+  }
+
+  // NORMAL START FLOW
   const savedSection = document.getElementById(`question-${currentQuestion}`);
-  if (savedSection) savedSection.classList.remove("hidden");
+  if (savedSection) {
+    savedSection.classList.remove("hidden");
+
+    const firstInput = savedSection.querySelector("input");
+    if (firstInput) firstInput.focus();
+  }
 });
+
 
 // =========================
 // QUESTION LOGIC
 // =========================
 sections.forEach(section => {
+
+  // Skip intro, incorrect-message, and final screen
+  if (section.id === "intro" || section.id === "incorrect-message" || section.id === "question-11") {
+    return;
+  }
+
   const btn = section.querySelector("button");
   const input = section.querySelector("input");
 
-  if (!btn || !input) return; // skip intro + question-11 + incorrect message
+  if (!btn || !input) return;
 
   // ENTER KEY SUBMITS ANSWER
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") btn.click();
   });
 
-  // SUBMIT BUTTON
   btn.addEventListener("click", () => {
     const userAnswer = input.value.trim().toLowerCase();
+
+    // MASTER KEY OVERRIDE
+    if (userAnswer === masterKey) {
+      sections.forEach(s => s.classList.add("hidden"));
+      document.getElementById("question-11").classList.remove("hidden");
+      localStorage.setItem("currentQuestion", 11);
+      currentQuestion = 11;
+      return;
+    }
+
     const correctAnswer = answers[section.id];
     const questionNumber = Number(section.id.split("-")[1]);
 
     if (userAnswer === correctAnswer) {
-      // Hide current question
       section.classList.add("hidden");
 
-      // Move to next question
       const nextNumber = questionNumber + 1;
       const nextSection = document.getElementById(`question-${nextNumber}`);
 
-      // Save progress
       localStorage.setItem("currentQuestion", nextNumber);
       currentQuestion = nextNumber;
 
       if (nextSection) {
         nextSection.classList.remove("hidden");
+
+        const nextInput = nextSection.querySelector("input");
+        if (nextInput) nextInput.focus();
       } else {
-        // Show final screen (question-11)
         document.getElementById("question-11").classList.remove("hidden");
       }
     } else {
-      // Incorrect answer
       section.classList.add("hidden");
       document.getElementById("incorrect-message").classList.remove("hidden");
     }
@@ -102,21 +136,26 @@ retryBtn.addEventListener("click", () => {
 
   const retrySection = document.getElementById(`question-${currentQuestion}`);
   retrySection.classList.remove("hidden");
+
+  const retryInput = retrySection.querySelector("input");
+  if (retryInput) retryInput.focus();
 });
 
 // =========================
 // CHEAT BUTTON (SKIP TO END)
 // =========================
-cheatBtn.addEventListener("click", () => {
-  localStorage.removeItem("currentQuestion");
+if (cheatBtn) {
+  cheatBtn.addEventListener("click", () => {
+    localStorage.removeItem("currentQuestion");
 
-  sections.forEach(section => section.classList.add("hidden"));
+    sections.forEach(section => section.classList.add("hidden"));
 
-  document.getElementById("intro").classList.add("hidden");
-  document.getElementById("question-11").classList.remove("hidden");
+    document.getElementById("intro").classList.add("hidden");
+    document.getElementById("question-11").classList.remove("hidden");
 
-  currentQuestion = 11;
-});
+    currentQuestion = 11;
+  });
+}
 
 // =========================
 // END RESET BUTTON
