@@ -27,6 +27,7 @@ h1{
 }
 body{
     background: url(./background-image.jpg) no-repeat center center fixed;
+    width: 100%;
 }
 main{
     width: 100vw;
