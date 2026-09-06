@@ -70,7 +70,7 @@ startBtn.addEventListener("click", () => {
     savedSection.classList.remove("hidden");
 
     const firstInput = savedSection.querySelector("input");
-    if (firstInput) firstInput.focus();
+    
   }
 });
 
@@ -123,7 +123,7 @@ sections.forEach(section => {
         nextSection.classList.remove("hidden");
 
         const nextInput = nextSection.querySelector("input");
-        if (nextInput) nextInput.focus();
+       
       } else {
         document.getElementById("question-11").classList.remove("hidden");
       }
@@ -155,7 +155,7 @@ retryBtn.addEventListener("click", () => {
 
   const retryInput = retrySection.querySelector("input");
   retryInput.value = ""; // Clear previous input
-  if (retryInput) retryInput.focus();
+ 
 });
 
 // =========================
@@ -189,5 +189,5 @@ endResetBtn.addEventListener("click", () => {
 
   document.getElementById("intro").classList.remove("hidden");
   masterCodeInput.value = "";
-  masterCodeInput.focus();
+  
 });
