@@ -69,7 +69,7 @@ startBtn.addEventListener("click", () => {
   if (savedSection) {
     savedSection.classList.remove("hidden");
 
-    const firstInput = savedSection.querySelector("input");
+   
     
   }
 });
@@ -122,7 +122,7 @@ sections.forEach(section => {
       if (nextSection) {
         nextSection.classList.remove("hidden");
 
-        const nextInput = nextSection.querySelector("input");
+      
        
       } else {
         document.getElementById("question-11").classList.remove("hidden");
