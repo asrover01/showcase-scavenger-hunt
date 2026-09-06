@@ -63,7 +63,7 @@ input, button {
 
 input {
   border: 2px solid rgb(161, 156, 244);
-  width: min(90%, 20em);
+  width: min(50%, 20em);
 }
 
 button {
@@ -92,11 +92,12 @@ span {
 }
 
 label {
-  margin: 0.5rem;
+  margin: 1rem;
   font-weight: bold;
   padding: 0.5rem;
   background: white;
   border-radius: 0.3rem;
+  height:fit-content
 }
 
 #intro-pic div {
