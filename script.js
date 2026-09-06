@@ -26,6 +26,7 @@ const masterKey = "0197"; // Master key to skip to the end
 // =========================
 // LOAD PROGRESS
 // =========================
+let masterInput= false;
 let currentQuestion = Number(localStorage.getItem("currentQuestion")) || 1;
 
 // If user already completed the hunt → show question-11
@@ -43,20 +44,25 @@ if (currentQuestion > 10) {
     if (e.key === "Enter") startBtn.click();
   });
   
-        if (!intro.classList.contains('hidden')) masterCodeInput.focus();
+        ;
       
 
 startBtn.addEventListener("click", () => {
   document.getElementById("intro").classList.add("hidden");
 
   // MASTER KEY CHECK
-  if (masterCodeInput.value.trim() === masterKey) {
+  if (masterCodeInput.value.trim() === masterKey ) {
     document.getElementById("question-11").classList.remove("hidden");
     localStorage.setItem("currentQuestion", 11);
     currentQuestion = 11;
     document.getElementById("incorrect-message").classList.add("hidden");
     return; // ⭐ THIS FIXES THE ISSUE
-  }
+  }else if (masterCodeInput.value.trim() !== "") {
+      sections.forEach(s => s.classList.add("hidden"));
+      document.getElementById("incorrect-message").classList.remove("hidden");
+      masterInput = true;
+      return
+    }
 
   // NORMAL START FLOW
   const savedSection = document.getElementById(`question-${currentQuestion}`);
@@ -137,11 +143,18 @@ retryBtn.addEventListener("keydown", (e) => {
   
 retryBtn.addEventListener("click", () => {
   document.getElementById("incorrect-message").classList.add("hidden");
+  if (masterInput){
+    document.getElementById("intro").classList.remove("hidden");
+    masterInput = false;
+    masterCodeInput.value = "";
+    return;
 
+  }
   const retrySection = document.getElementById(`question-${currentQuestion}`);
   retrySection.classList.remove("hidden");
 
   const retryInput = retrySection.querySelector("input");
+  retryInput.value = ""; // Clear previous input
   if (retryInput) retryInput.focus();
 });
 
