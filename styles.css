@@ -137,15 +137,11 @@ label {
 
 /*hangman overlay styles*/
 #hangman-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
+  opacity: 0.9;
+ 
   color: white;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  
+
 }
 #hangman-wrong {
   margin-top: 1rem;
@@ -160,3 +156,4 @@ label {
 [id^="q"][id$="-hint"] {
   white-space: pre;
 }
+
