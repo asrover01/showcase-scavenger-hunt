@@ -24,7 +24,7 @@ const hangmanWords = {
   10: "Taps and Barrels",
   11: "purifying elixir",
   12: "humming box",
-  13: "decad coffer"
+  13: "The witching hour coffer"
 };
 
 // =========================
@@ -65,8 +65,8 @@ const masterKey = "0197";
 // LOAD PROGRESS
 // =========================
 let masterInput = false;
-let currentQuestion = Number(localStorage.getItem("newCurrentQuestion")) || 1;
-let finalSolved = localStorage.getItem("newFinalSolved") === "true";
+let currentQuestion = Number(localStorage.getItem("currentQuestion")) || 1;
+let finalSolved = localStorage.getItem("finalSolved") === "true";
 
 if (currentQuestion > 13) currentQuestion = 13;
 
@@ -101,7 +101,7 @@ startBtn.addEventListener("click", () => {
     if (!jumpTo) {
       sections.forEach(s => s.classList.add("hidden"));
       document.getElementById("question-13").classList.remove("hidden");
-      localStorage.setItem("newCurrentQuestion", 13);
+      localStorage.setItem("currentQuestion", 13);
       currentQuestion = 13;
       startHangman(13);
       return;
@@ -113,7 +113,7 @@ startBtn.addEventListener("click", () => {
       sections.forEach(s => s.classList.add("hidden"));
       targetSection.classList.remove("hidden");
 
-      localStorage.setItem("newCurrentQuestion", jumpTo);
+      localStorage.setItem("currentQuestion", jumpTo);
       currentQuestion = jumpTo;
 
       hangmanSolved = false;
@@ -159,7 +159,7 @@ sections.forEach(section => {
     if (userAnswer === masterKey) {
       sections.forEach(s => s.classList.add("hidden"));
       document.getElementById("question-13").classList.remove("hidden");
-      localStorage.setItem("newCurrentQuestion", 13);
+      localStorage.setItem("currentQuestion", 13);
       currentQuestion = 13;
       startHangman(13);
       return;
@@ -181,7 +181,7 @@ sections.forEach(section => {
       const nextNumber = questionNumber + 1;
       const nextSection = document.getElementById(`question-${nextNumber}`);
 
-      localStorage.setItem("newCurrentQuestion", nextNumber);
+      localStorage.setItem("currentQuestion", nextNumber);
       currentQuestion = nextNumber;
       hangmanSolved = false;
 
@@ -228,8 +228,8 @@ retryBtn.addEventListener("click", () => {
 // =========================
 if (cheatBtn) {
   cheatBtn.addEventListener("click", () => {
-    localStorage.removeItem("newCurrentQuestion");
-    localStorage.removeItem("newFinalSolved");
+    localStorage.removeItem("currentQuestion");
+    localStorage.removeItem("finalSolved");
 
     sections.forEach(section => section.classList.add("hidden"));
     document.getElementById("intro").classList.add("hidden");
@@ -248,8 +248,8 @@ endResetBtn.addEventListener("keydown", (e) => {
 });
 
 endResetBtn.addEventListener("click", () => {
-  localStorage.removeItem("newCurrentQuestion");
-  localStorage.removeItem("newFinalSolved");
+  localStorage.removeItem("currentQuestion");
+  localStorage.removeItem("finalSolved");
   currentQuestion = 1;
 
   sections.forEach(section => section.classList.add("hidden"));
@@ -335,7 +335,7 @@ hangmanSubmit.addEventListener("click", () => {
     hangmanSolved = true;
     hangmanWrong.textContent = "Solved!";
     if (currentQuestion === 13) {
-      localStorage.setItem("newFinalSolved", "true");
+      localStorage.setItem("finalSolved", "true");
     }
     setTimeout(() => hangmanOverlay.classList.add("hidden"), 1200);
     return;
